@@ -392,6 +392,21 @@
         .no-results svg { margin-bottom: 1rem; opacity: 0.4; }
         .no-results h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-secondary); }
 
+        /* Disclaimer */
+        .disclaimer {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1.25rem;
+            background: #FFFBE6;
+            border: 1px solid #FDE68A;
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+            font-size: 0.88rem;
+            color: #92400E;
+        }
+        .disclaimer svg { flex-shrink: 0; }
+
         /* ========== Responsive ========== */
         @media (max-width: 900px) {
             .template-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
@@ -425,6 +440,11 @@
                 <span class="section-tag">TEMPLATES</span>
                 <h1 class="section-title">PPT模板下载</h1>
                 <p class="section-desc">精选 40+ 优质模板，覆盖答辩、商务、创意、校友等多种场景，一键下载使用</p>
+            </div>
+
+            <div class="disclaimer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>以下PPT模板均从不同途径收集而来，仅供学习参考使用</span>
             </div>
 
             <div class="search-filter-bar">

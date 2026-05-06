@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活动方案 — 班团资源库</title>
+    <link rel="stylesheet" href="common.css">
+    <style>
+        /* ========== Activities Page (adapted from 第一版) ========== */
+        .activities-page { padding: 3rem 0 5rem; }
+
+        .intro-section { padding: 2rem 0 3rem; text-align: left; }
+        .subtitle { color: var(--text-muted); font-size: 1rem; margin-bottom: 0.5rem; }
+        .main-title { font-family: var(--serif); font-size: 3.5rem; font-weight: 700; margin: 0; letter-spacing: 0.1em; }
+        .subtitle-english { color: #b0b0b0; font-style: italic; font-size: 1.25rem; margin-top: 0.5rem; }
+
+        .search-bar { position: relative; margin-bottom: 2.5rem; }
+        .search-bar input { width: 100%; padding: 1rem 1rem 1rem 3.5rem; font-size: 1.1rem; border: 1px solid var(--border); border-radius: 8px; background-color: #fff; outline: none; transition: border-color 0.2s; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+        .search-bar input:focus { border-color: #bbb; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
+        .filters { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 3rem; }
+        .filter-btn { padding: 0.6rem 1.5rem; border: none; border-radius: 999px; background-color: var(--border); color: var(--text); font-size: 0.95rem; cursor: pointer; transition: all 0.2s; font-family: var(--sans); }
+        .filter-btn:hover { background-color: #ddd; }
+        .filter-btn.active { background-color: var(--text); color: #fff; }
+
+        .content-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+        .content-header h3 { font-size: 1.2rem; font-weight: 500; }
+
+        .activity-list { display: flex; flex-direction: column; }
+        .activity-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 2.5rem 1rem; border-bottom: 1px solid var(--border); transition: background-color 0.2s, transform 0.2s; cursor: pointer; margin: 0 -1rem; border-radius: 8px; }
+        .activity-item:hover { background-color: rgba(248, 247, 243, 0.9); }
+
+        .item-details { flex: 1; padding-right: 3rem; }
+        .item-details h4 { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; color: #2C2C2C; margin-bottom: 1rem; letter-spacing: 0.02em; }
+        .item-details p { color: #555555; margin-bottom: 1.5rem; font-size: 1.05rem; line-height: 1.7; max-width: 900px; }
+
+        /* Tags */
+        .tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.2rem; }
+        .tag { padding: 0.25rem 0.9rem; border-radius: 999px; font-size: 0.85rem; font-weight: 500; background-color: #F0F0F0; color: #666; }
+        .tag[data-type="文娱"] { background-color: #FDF3E7; color: #B58A59; }
+        .tag[data-type="零经费"] { background-color: #F0F4F8; color: #7B8D9E; }
+        .tag[data-type="破冰"] { background-color: #FCEAE8; color: #C07065; }
+        .tag[data-type="工具"] { background-color: #EBF4FA; color: #6993B0; }
+        .tag[data-type="思政"] { background-color: #F9EBEB; color: #A66464; }
+        .tag[data-type="案例"] { background-color: #EDF6F0; color: #689E78; }
+        .tag[data-type="户外"] { background-color: #F2F0E6; color: #9A8D60; }
+
+        .metadata { display: flex; flex-wrap: wrap; gap: 2rem; color: #999; font-size: 0.95rem; }
+        .metadata span { display: flex; align-items: center; gap: 0.4rem; }
+        .metadata svg { stroke: #999; stroke-width: 1.5; width: 18px; height: 18px; }
+
+        .rating { font-size: 1.3rem; color: #E0E0E0; letter-spacing: 0.1em; white-space: nowrap; margin-top: 5px; }
+        .rating .filled { color: #D4C4A8; }
+
+        .empty-state { text-align: center; padding: 6rem 0; color: var(--text-muted); font-size: 1.2rem; }
+
+        /* ========== Detail View ========== */
+        #detail-view { display: none; }
+        #detail-view .container { padding-top: 2rem; }
+
+        .detail-nav { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem 0.5rem 0; margin-bottom: 2.5rem; cursor: pointer; color: var(--text); font-weight: 500; transition: color 0.2s; font-size: 1.1rem; }
+        .detail-nav:hover { color: #888; }
+
+        .detail-header { margin-bottom: 4rem; max-width: 900px; }
+        .detail-main-title { font-family: var(--serif); font-size: 2.8rem; font-weight: 700; color: #1a1a1a; margin-bottom: 1.5rem; letter-spacing: 0.05em; line-height: 1.3; }
+        .detail-desc { color: #555; font-size: 1.2rem; line-height: 1.8; }
+
+        .detail-meta-grid { display: flex; justify-content: space-between; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2rem 1rem; margin-bottom: 4rem; background-color: rgba(255,255,255,0.3); border-radius: 8px; }
+        .meta-item { flex: 1; border: none; padding: 0; }
+        .meta-label { font-size: 0.9rem; color: #A0A0A0; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .meta-value { display: flex; align-items: center; gap: 0.6rem; color: #222; font-size: 1.1rem; font-weight: 500; }
+
+        .detail-section { margin-bottom: 4rem; padding-bottom: 3rem; }
+        .section-subtitle { display: flex; align-items: baseline; gap: 0.8rem; font-family: var(--serif); font-size: 1.6rem; color: #2C2C2C; margin-bottom: 2rem; }
+        .section-num { font-family: var(--sans); font-size: 1.1rem; color: #B0B0B0; font-weight: 400; }
+
+        .step-list { list-style: none; padding: 0; max-width: 1000px; }
+        .step-list li { display: flex; align-items: flex-start; gap: 1.2rem; margin-bottom: 1.5rem; color: #333; line-height: 1.7; font-size: 1.05rem; }
+        .step-number { display: flex; align-items: center; justify-content: center; background-color: #2C2C2C; color: #FFF; border-radius: 50%; width: 26px; height: 26px; font-size: 0.9rem; flex-shrink: 0; margin-top: 3px; font-weight: 500; }
+
+        .material-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+        .material-list li { display: flex; align-items: center; gap: 1rem; color: #333; font-size: 1.05rem; }
+        .checkbox-mock { width: 20px; height: 20px; border: 2px solid #CCC; border-radius: 4px; flex-shrink: 0; }
+
+        @media (max-width: 600px) {
+            .detail-meta-grid { flex-wrap: wrap; gap: 1.5rem; }
+            .meta-item { flex: 1 1 45%; }
+            .main-title { font-size: 2.5rem; }
+            .detail-main-title { font-size: 2rem; }
+            .item-details { padding-right: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== List View ===== -->
+    <div id="list-view" class="container">
+        <header class="site-header">
+            <div class="header-left">
+                <a href="index.html" class="header-logo">班团资源库</a>
+                <nav class="header-nav">
+                    <a href="index.html" class="nav-link">首页</a>
+                    <a href="ppt.html" class="nav-link">PPT模板</a>
+                    <a href="activities.html" class="nav-link active">活动方案</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="activities-page">
+            <section class="intro-section">
+                <p class="subtitle">— 搜资源, 直接用</p>
+                <h2 class="main-title">活动灵感</h2>
+                <p class="subtitle-english">from your class archive</p>
+            </section>
+
+            <section class="search-section">
+                <div class="search-bar">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;top:50%;left:1.2rem;transform:translateY(-50%);color:var(--text-muted)"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="searchInput" placeholder="搜索活动方案 (如: 破冰, 越野, 电影)...">
+                </div>
+            </section>
+
+            <section class="filters-section">
+                <div class="filters" id="filterContainer">
+                    <button class="filter-btn active" data-filter="全部">全部</button>
+                    <button class="filter-btn" data-filter="破冰">破冰</button>
+                    <button class="filter-btn" data-filter="思政">思政</button>
+                    <button class="filter-btn" data-filter="文娱">文娱</button>
+                    <button class="filter-btn" data-filter="工具">工具</button>
+                    <button class="filter-btn" data-filter="案例">案例</button>
+                    <button class="filter-btn" data-filter="零经费">零经费</button>
+                    <button class="filter-btn" data-filter="户外">户外</button>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="content-header">
+                    <h3>资源列表 <span id="resultCount" style="font-size:1rem; color:#9E9E9E; font-weight:normal; margin-left:10px;"></span></h3>
+                </div>
+                <div id="activity-list" class="activity-list"></div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <p>班团资源库 &copy; 2025 — 资源仅供学习交流使用</p>
+        </footer>
+    </div>
+
+    <!-- ===== Detail View ===== -->
+    <div id="detail-view" class="container" style="display: none;">
+        <div class="detail-nav" id="backBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <span>返回资源库</span>
+        </div>
+
+        <div class="detail-header">
+            <div id="detail-tags" class="tags" style="margin-bottom: 1.5rem;"></div>
+            <h1 id="detail-title" class="detail-main-title">标题</h1>
+            <p id="detail-desc" class="detail-desc">描述</p>
+        </div>
+
+        <div class="detail-meta-grid">
+            <div class="meta-item">
+                <div class="meta-label">适用人数</div>
+                <div class="meta-value">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <span id="detail-pax"></span>
+                </div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">预算</div>
+                <div class="meta-value">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 18V6"></path></svg>
+                    <span id="detail-budget"></span>
+                </div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">时长</div>
+                <div class="meta-value">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <span id="detail-time"></span>
+                </div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">难度</div>
+                <div class="meta-value" style="gap: 8px;">
+                    <span id="detail-rating-stars"></span>
+                    <span id="detail-rating-text" style="font-weight: 700; color: #333; margin-left: 5px;"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <h3 class="section-subtitle"><span class="section-num">01</span> 步骤说明</h3>
+            <ul id="detail-steps" class="step-list"></ul>
+        </div>
+
+        <div class="detail-section">
+            <h3 class="section-subtitle"><span class="section-num">02</span> 物料清单</h3>
+            <ul id="detail-materials" class="material-list"></ul>
+        </div>
+    </div>
+
+    <script src="activities.js"></script>
+</body>
+</html>

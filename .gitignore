@@ -1,0 +1,15 @@
+# Large zip archives (>100MB GitHub limit)
+*.zip
+
+# Python utility scripts
+generate_previews.py
+
+# Claude internal files
+.claude/
+
+# Old web folder (moved to root)
+Web/
+
+# OS files
+.DS_Store
+Thumbs.db

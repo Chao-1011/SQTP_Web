@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>班团资源库 — 活动灵感 · PPT模板</title>
+    <title>班团资源库 — 活动资源一站汇集</title>
     <link rel="stylesheet" href="common.css">
     <style>
         /* ========== Hero ========== */
@@ -54,19 +54,12 @@
 
         .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
-        .hero-stats {
+        .hero-emblem {
+            flex-shrink: 0;
             display: flex;
-            gap: 2.5rem;
-            padding: 2rem 2.5rem;
-            background: var(--surface);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border);
+            align-items: center;
+            justify-content: center;
         }
-
-        .stat-item { display: flex; flex-direction: column; align-items: center; }
-        .stat-number { font-family: var(--serif); font-size: 2rem; font-weight: 700; color: var(--primary); }
-        .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
 
         /* ========== Nav Cards ========== */
         .nav-cards {
@@ -142,14 +135,12 @@
         @media (max-width: 900px) {
             .hero { flex-direction: column; padding: 3rem 0; gap: 2rem; }
             .hero-title { font-size: 2.5rem; }
-            .hero-stats { width: 100%; justify-content: center; gap: 2rem; }
+            .hero-emblem { align-self: center; }
         }
 
         @media (max-width: 600px) {
             .hero-title { font-size: 2rem; }
             .hero-desc { font-size: 0.95rem; }
-            .hero-stats { padding: 1.5rem; gap: 1.5rem; }
-            .stat-number { font-size: 1.5rem; }
             .nav-cards-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -163,7 +154,7 @@
                 <a href="index.html" class="header-logo">班团资源库</a>
                 <nav class="header-nav">
                     <a href="index.html" class="nav-link active">首页</a>
-                    <a href="ppt.html" class="nav-link">PPT模板</a>
+                    <a href="resources.html" class="nav-link">活动资源</a>
                     <a href="activities.html" class="nav-link">活动方案</a>
                 </nav>
             </div>
@@ -173,32 +164,21 @@
         <section class="hero">
             <div class="hero-content">
                 <span class="hero-badge">ZJU · ARCHIVE</span>
-                <h1 class="hero-title">活动灵感<br><span class="hero-highlight">从这里出发</span></h1>
-                <p class="hero-desc">汇集班团活动方案、精品PPT模板、实用工具，<br>让每一次展示都出彩</p>
+                <h1 class="hero-title">活动资源<br><span class="hero-highlight">一站汇集</span></h1>
+                <p class="hero-desc">汇集班团活动方案、精品PPT模板、策划案模板，<br>让每一次活动与展示都出彩</p>
                 <div class="hero-actions">
-                    <a href="ppt.html" class="btn-primary">
+                    <a href="resources.html" class="btn-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                        浏览PPT模板
+                        浏览活动资源
                     </a>
                     <a href="activities.html" class="btn-secondary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                        查看活动方案
+                        浏览活动方案
                     </a>
                 </div>
             </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">30+</span>
-                    <span class="stat-label">PPT模板</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">33</span>
-                    <span class="stat-label">活动方案</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">免费</span>
-                    <span class="stat-label">下载使用</span>
-                </div>
+            <div class="hero-emblem">
+                <img src="zju-logo.svg" alt="浙江大学" width="160" height="160" style="display:block;">
             </div>
         </section>
 
@@ -210,13 +190,13 @@
                 <p class="section-desc">选择你需要的内容板块</p>
             </div>
             <div class="nav-cards-grid">
-                <a href="ppt.html" class="nav-card">
+                <a href="resources.html" class="nav-card">
                     <div class="nav-card-icon icon-ppt">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                     </div>
-                    <h3>PPT模板下载</h3>
-                    <p>浙大官方模板、答辩汇报、商务通用、创意风格、校友总会等 30+ 精选模板，一键下载</p>
-                    <span class="nav-card-arrow">浏览模板 →</span>
+                    <h3>活动资源下载</h3>
+                    <p>40+ 精选PPT模板 + 16 套策划案Word模板，浙大官方、答辩汇报、班团活动策划案，一键下载</p>
+                    <span class="nav-card-arrow">浏览资源 →</span>
                 </a>
                 <a href="activities.html" class="nav-card">
                     <div class="nav-card-icon icon-activities">

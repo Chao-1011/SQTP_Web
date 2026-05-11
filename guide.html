@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>策划指南 — 班团资源库</title>
+    <link rel="stylesheet" href="common.css">
+    <style>
+        .guide-page { padding: 3rem 0 5rem; }
+
+        /* ===== Hero Guide Card ===== */
+        .hero-guide {
+            background: var(--surface);
+            border: 2px solid #DC2626;
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            gap: 3rem;
+            align-items: flex-start;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-guide::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, #DC2626 0%, #F97316 100%);
+            border-radius: 6px 0 0 6px;
+        }
+
+        .hero-guide-badge {
+            display: inline-block;
+            padding: 0.25rem 0.8rem;
+            background: #FEF2F2;
+            color: #DC2626;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .hero-guide-content { flex: 1; }
+
+        .hero-guide-content h2 {
+            font-family: var(--serif);
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.03em;
+        }
+
+        .hero-guide-content .guide-summary {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-guide-content ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .hero-guide-content ul li {
+            padding: 0.35rem 0;
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-guide-content ul li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #DC2626;
+            flex-shrink: 0;
+        }
+
+        .hero-guide-cover {
+            flex-shrink: 0;
+            width: 260px;
+        }
+
+        .hero-guide-cover img {
+            width: 100%;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
+            display: block;
+        }
+
+        .hero-guide-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-danger {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.75rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s;
+            cursor: pointer;
+            font-family: var(--sans);
+            background: #DC2626;
+            color: #fff;
+            border: none;
+        }
+        .btn-danger:hover { background: #B91C1C; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+        /* ===== Secondary Guide Card ===== */
+        .guide-secondary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .guide-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s;
+        }
+
+        .guide-card-cover {
+            width: 100%;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            background: #F0EFEB;
+        }
+
+        .guide-card-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .guide-card:hover .guide-card-cover img { transform: scale(1.05); }
+
+        .guide-card-body {
+            padding: 2rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        @media (max-width: 600px) {
+            .guide-card-body { padding: 1.5rem; }
+        }
+
+        .guide-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: #D0D0D0;
+        }
+
+        .guide-card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            font-size: 1.5rem;
+        }
+
+        .icon-pdf  { background: #FEF2F2; color: #DC2626; }
+
+        .guide-card h3 {
+            font-family: var(--serif);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .guide-card .card-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .guide-card .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .guide-card .card-desc {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.7;
+            flex: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-card .card-desc ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 0.5rem;
+        }
+
+        .guide-card .card-desc ul li {
+            padding: 0.2rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .guide-card .card-desc ul li::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .guide-card-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.5rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: var(--sans);
+            background: var(--surface);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+        .btn-outline:hover { border-color: #C0C0C0; background: #F5F5F2; }
+
+        @media (max-width: 900px) {
+            .hero-guide { flex-direction: column; padding: 2rem; }
+            .hero-guide-cover { width: 200px; }
+            .hero-guide-content ul { grid-template-columns: 1fr; }
+            .hero-guide-content h2 { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 600px) {
+            .guide-secondary { grid-template-columns: 1fr; }
+            .guide-card { padding: 1.75rem; }
+            .guide-card-actions, .hero-guide-actions { flex-direction: column; }
+            .hero-guide { padding: 1.5rem; }
+            .hero-guide-cover { width: 160px; align-self: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="site-header">
+        <div class="header-left">
+            <a href="index.html" class="header-logo">班团资源库</a>
+            <nav class="header-nav">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="guide.html" class="nav-link active">策划指南</a>
+                <a href="resources.html" class="nav-link">活动资源</a>
+                <a href="activities.html" class="nav-link">活动方案</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="guide-page">
+        <div class="section-header">
+            <span class="section-tag">GUIDE</span>
+            <h1 class="section-title">策划指南</h1>
+            <p class="section-desc">班团活动策划全流程指导，从组建到落地，一站掌握</p>
+        </div>
+
+        <!-- ===== 班团组建活动指南 (Hero) ===== -->
+        <div class="hero-guide">
+            <div class="hero-guide-content">
+                <span class="hero-guide-badge">核心指南</span>
+                <h2>班团组建活动指南</h2>
+                <p class="guide-summary">
+                    班团组建是班级凝聚力的起点。本指南从零开始，系统讲解班团组建的全流程实操方法，
+                    涵盖破冰活动设计、班级文化建设、组织架构搭建等关键环节，是每一位班团干部的必读手册。
+                </p>
+                <ul>
+                    <li>破冰活动设计与执行要点</li>
+                    <li>班级凝聚力建设的核心方法</li>
+                    <li>班团组织架构搭建建议</li>
+                    <li>常见问题与应对策略</li>
+                </ul>
+                <div class="hero-guide-actions">
+                    <a href="策划指南/班团组建活动指南(1).pdf" class="btn-danger" download>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        下载 PDF 文档
+                    </a>
+                    <a href="策划指南/班团组建活动指南(1).pdf" target="_blank" class="btn-outline">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        在线预览
+                    </a>
+                </div>
+            </div>
+            <div class="hero-guide-cover">
+                <img src="previews/guide-cover.png" alt="班团组建活动指南 封面" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <div style="display:none; width:100%; aspect-ratio:3/4; background:linear-gradient(135deg, #DC2626, #F97316); border-radius:12px; border:1px solid #E8E6E1; box-shadow:0 4px 12px rgba(0,0,0,0.06); flex-direction:column; align-items:center; justify-content:center; color:#fff; text-align:center; padding:2rem;">
+                    <span style="font-family:'Noto Serif SC', serif; font-size:1.2rem; font-weight:700;">班团组建<br>活动指南</span>
+                    <span style="font-size:0.8rem; opacity:0.7; margin-top:0.5rem;">PDF 文档</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 七大类型班会 (Secondary) ===== -->
+        <div class="guide-secondary">
+            <div class="guide-card">
+                <div class="guide-card-body">
+                    <div class="guide-card-icon icon-pdf">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M9 15v-4"></path><path d="M12 15v-4"></path><path d="M15 15v-4"></path></svg>
+                    </div>
+                    <h3>七大类型班会全流程策划方案</h3>
+                    <div class="card-meta">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                            PDF 文档
+                        </span>
+                    </div>
+                    <p class="card-desc">
+                        涵盖七大类班会的完整策划指导：
+                        <ul>
+                            <li>新生适应 · 学业发展 · 班级团建</li>
+                            <li>职业规划 · 心理健康 · 主题教育</li>
+                            <li>期末动员 · 科研分享 · 毕业主题</li>
+                        </ul>
+                    </p>
+                    <div class="guide-card-actions">
+                        <a href="策划指南/七大类型班会全流程策划方案(1).pdf" class="btn-primary" download>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            下载 PDF 文档
+                        </a>
+                        <a href="策划指南/七大类型班会全流程策划方案(1).pdf" target="_blank" class="btn-outline">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            在线预览
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>班团资源库 &copy; 2025 — 资源仅供学习交流使用</p>
+    </footer>
+</div>
+
+</body>
+</html>

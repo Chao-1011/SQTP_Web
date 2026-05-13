@@ -1,5 +1,5 @@
-# Large zip archives (>100MB GitHub limit)
-*.zip
+# Split zip archives (each <100MB for GitHub)
+# *.zip — now allowed for split archives under 100MB
 
 # Python utility scripts
 generate_previews.py

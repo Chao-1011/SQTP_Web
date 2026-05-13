@@ -365,33 +365,116 @@ const templateData = [
         download: 'PPT/大英展示模板(1).pptx'
     },
 
-    // ===== 压缩包合集 (4) =====
+    // ===== 压缩包合集 =====
+    // 浙大官方PPT模板 (Part 1)
     {
-        id: 'pack-01', name: '浙大官方模板合集', category: 'pack',
+        id: 'pack-official-1', name: '浙大官方模板合集 (上)', category: 'pack',
         catLabel: '压缩包', catClass: 'cat-pack',
-        desc: '11套浙大官方PPT模板全部打包下载，涵盖四季风光、校园文化、科技创新等完整主题。',
-        scenarios: ['一次下载全套', '离线使用', '收藏备份', '社团共享'],
-        tags: ['合集', '11套', '官方'],
+        desc: '含：冬日雪景风、秋日暖阳风、求是传承风，共3套浙大官方PPT模板。',
+        scenarios: ['一次下载多套', '离线使用', '收藏备份', '社团共享'],
+        tags: ['合集', '官方', '季节主题'],
         preview: null,
-        download: 'PPT/浙江大学官方PPT模板.zip'
+        download: 'PPT/浙大官方PPT模板_part1.zip'
     },
+    // 浙大官方PPT模板 (Part 2)
     {
-        id: 'pack-02', name: 'zjuPPT模板合集', category: 'pack',
+        id: 'pack-official-2', name: '浙大官方模板合集 (下)', category: 'pack',
         catLabel: '压缩包', catClass: 'cat-pack',
-        desc: '第一期+第二期浙大PPT模板合集，包含答辩、商务、小清新、艺术等丰富风格。',
-        scenarios: ['一次下载全套', '离线使用', '收藏备份', '社团共享'],
-        tags: ['合集', '多风格', '经典'],
+        desc: '含：黑夜科技风、清晨大西区、灿若星辰风、红蓝撞色风、书香浙大风、春日小清新、夏日漫画风、现代简约风，共8套模板。',
+        scenarios: ['一次下载多套', '离线使用', '收藏备份', '多场景覆盖'],
+        tags: ['合集', '官方', '多样风格'],
         preview: null,
-        download: 'PPT/zjuPPT模板.zip'
+        download: 'PPT/浙大官方PPT模板_part2.zip'
     },
+    // zjuPPT模板 (Part 1)
     {
-        id: 'pack-03', name: 'PPT模板通用合集', category: 'pack',
+        id: 'pack-zju-1', name: 'zjuPPT模板合集 (一)', category: 'pack',
         catLabel: '压缩包', catClass: 'cat-pack',
-        desc: '浙大经典模板合集（党政/创新红/求是蓝/建筑/漫画/秋景/科技），多场景覆盖。',
-        scenarios: ['一次下载全套', '离线使用', '收藏备份', '日常使用'],
-        tags: ['通用', '入门', '合集'],
+        desc: '含：校友总会·樱花模板 + 第二期·答辩3，共2套。',
+        scenarios: ['校友活动', '答辩展示', '离线使用'],
+        tags: ['合集', '校友', '答辩'],
         preview: null,
-        download: 'PPT/PPT模板.zip'
+        download: 'PPT/zjuPPT模板_part1.zip'
+    },
+    // zjuPPT模板 (Part 2)
+    {
+        id: 'pack-zju-2', name: 'zjuPPT模板合集 (二)', category: 'pack',
+        catLabel: '压缩包', catClass: 'cat-pack',
+        desc: '含：第一期·艺术 + 校友总会·浙大景观 + 第一期·答辩5，共3套。',
+        scenarios: ['艺术展示', '校园景观', '答辩展示'],
+        tags: ['合集', '艺术', '景观', '答辩'],
+        preview: null,
+        download: 'PPT/zjuPPT模板_part2.zip'
+    },
+    // zjuPPT模板 (Part 3)
+    {
+        id: 'pack-zju-3', name: 'zjuPPT模板合集 (三)', category: 'pack',
+        catLabel: '压缩包', catClass: 'cat-pack',
+        desc: '含：校友总会·荷花模板、桂花模板 + 第一期·商务3、小清新、商务2，共5套。',
+        scenarios: ['商务展示', '校友活动', '小清新风格'],
+        tags: ['合集', '校友', '商务', '小清新'],
+        preview: null,
+        download: 'PPT/zjuPPT模板_part3.zip'
+    },
+    // zjuPPT模板 (Part 4)
+    {
+        id: 'pack-zju-4', name: 'zjuPPT模板合集 (四)', category: 'pack',
+        catLabel: '压缩包', catClass: 'cat-pack',
+        desc: '含：第一期·答辩1/2/3/4/6/7、商务1 + 第二期·答辩1/2/4/5、商务1/2/3、小清新、艺术，共16套。',
+        scenarios: ['答辩展示', '商务展示', '一次下载多套'],
+        tags: ['合集', '答辩', '商务', '多风格'],
+        preview: null,
+        download: 'PPT/zjuPPT模板_part4.zip'
+    },
+    // PPT通用模板 (Part 1)
+    {
+        id: 'pack-pptmb-1', name: 'PPT通用模板合集 (一)', category: 'pack',
+        catLabel: '压缩包', catClass: 'cat-pack',
+        desc: '含：浙大建筑PPT模板·3、浙大建筑PPT模板·1、浙大模板PPT，共3套建筑系列模板。',
+        scenarios: ['建筑主题', '浙大特色', '正式场合'],
+        tags: ['合集', '建筑', '浙大'],
+        preview: null,
+        download: 'PPT/PPT通用模板_part1.zip'
+    },
+    // PPT通用模板 (Part 2)
+    {
+        id: 'pack-pptmb-2', name: 'PPT通用模板合集 (二)', category: 'pack',
+        catLabel: '压缩包', catClass: 'cat-pack',
+        desc: '含：党政风模板 + 浙大建筑PPT模板·2，共2套。',
+        scenarios: ['党政会议', '建筑主题', '正式汇报'],
+        tags: ['合集', '党政', '建筑'],
+        preview: null,
+        download: 'PPT/PPT通用模板_part2.zip'
+    },
+    // PPT通用模板 (Part 3)
+    {
+        id: 'pack-pptmb-3', name: 'PPT通用模板合集 (三)', category: 'pack',
+        catLabel: '压缩包', catClass: 'cat-pack',
+        desc: '含：创新红模板 + 浙大建筑PPT模板·5，共2套。',
+        scenarios: ['创新主题', '建筑主题', '正式汇报'],
+        tags: ['合集', '创新', '建筑'],
+        preview: null,
+        download: 'PPT/PPT通用模板_part3.zip'
+    },
+    // PPT通用模板 (Part 4)
+    {
+        id: 'pack-pptmb-4', name: 'PPT通用模板合集 (四)', category: 'pack',
+        catLabel: '压缩包', catClass: 'cat-pack',
+        desc: '含：科技风模板、求是蓝模板、秋景模板，共3套。',
+        scenarios: ['科技主题', '求是文化', '秋季主题'],
+        tags: ['合集', '科技', '文化', '季节'],
+        preview: null,
+        download: 'PPT/PPT通用模板_part4.zip'
+    },
+    // PPT通用模板 (Part 5)
+    {
+        id: 'pack-pptmb-5', name: 'PPT通用模板合集 (五)', category: 'pack',
+        catLabel: '压缩包', catClass: 'cat-pack',
+        desc: '含：漫画风模板，1套创意风格模板。',
+        scenarios: ['创意展示', '轻松场合', '个性化'],
+        tags: ['合集', '漫画', '创意'],
+        preview: null,
+        download: 'PPT/PPT通用模板_part5.zip'
     },
 ];
 

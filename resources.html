@@ -379,14 +379,24 @@
         'linear-gradient(135deg, #0984e3, #74b9ff)', 'linear-gradient(135deg, #d63031, #ff7675)'
     ];
 
-    function renderPPTCards(data) {
+    var pptPage = 1;
+    var pptPerPage = 12;
+    var pptFilteredCache = [];
+
+    function renderPPTCards(data, reset) {
         if (!pptGrid) return;
+        if (reset) { pptPage = 1; pptFilteredCache = data.slice(); }
+        var total = pptFilteredCache.length;
+        var pageItems = pptFilteredCache.slice(0, pptPage * pptPerPage);
+        var hasMore = pageItems.length < total;
+
         pptGrid.innerHTML = '';
-        if (!data.length) {
+        if (!total) {
             pptGrid.innerHTML = '<div class="no-results"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><h3>没有找到匹配的模板</h3><p>试试调整搜索关键词或筛选条件</p></div>';
+            updatePPTLoadMore(false);
             return;
         }
-        data.forEach(function(item, idx) {
+        pageItems.forEach(function(item, idx) {
             var card = document.createElement('div');
             card.className = 'template-card';
 
@@ -409,12 +419,33 @@
                 '<p class="card-desc">' + item.desc + '</p>' +
                 '<div class="card-tags">' + (item.tags || []).map(function(t) { return '<span class="card-tag">' + t + '</span>'; }).join('') + '</div>' +
                 '<div class="card-actions">' +
-                '<a href="' + item.download + '" class="btn-download" download>下载</a>' +
+                '<a href="' + item.download + '" class="btn-download" ' + (item.download && item.download.endsWith('.zip') ? 'target="_blank" rel="noopener"' : 'download') + '>下载</a>' +
                 '<button class="btn-preview" data-action="preview" data-id="' + item.id + '">预览</button>' +
                 '</div></div>';
 
             pptGrid.appendChild(card);
         });
+        updatePPTLoadMore(hasMore);
+    }
+
+    function updatePPTLoadMore(show) {
+        var btn = document.getElementById('btnPPTLoadMore');
+        if (show) {
+            if (!btn) {
+                btn = document.createElement('button');
+                btn.id = 'btnPPTLoadMore';
+                btn.className = 'btn-load-more';
+                btn.textContent = '浏览更多PPT模板';
+                btn.addEventListener('click', function() {
+                    pptPage++;
+                    renderPPTCards(null, false);
+                });
+                pptGrid.parentNode.insertBefore(btn, pptGrid.nextSibling);
+            }
+            btn.style.display = '';
+        } else if (btn) {
+            btn.style.display = 'none';
+        }
     }
 
     function filterPPT() {
@@ -431,7 +462,7 @@
             return true;
         });
         pptResultCount.textContent = '(共 ' + filtered.length + ' 个模板)';
-        renderPPTCards(filtered);
+        renderPPTCards(filtered, true);
     }
 
     if (pptSearch) pptSearch.addEventListener('input', filterPPT);
@@ -444,7 +475,7 @@
     });
 
     if (typeof templateData !== 'undefined') {
-        renderPPTCards(templateData);
+        renderPPTCards(templateData, true);
         pptResultCount.textContent = '(共 ' + templateData.length + ' 个模板)';
     }
 

@@ -463,7 +463,7 @@ function renderTemplates() {
                         ${t.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
                     </div>
                     <div class="card-actions">
-                        <a href="${t.download}" class="btn-download" download>
+                        <a href="${t.download}" class="btn-download" ${t.download.endsWith('.zip') ? 'target="_blank" rel="noopener"' : 'download'}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:3px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                             下载
                         </a>
@@ -522,7 +522,7 @@ templateGrid.addEventListener('click', (e) => {
             <h4 style="font-size:0.9rem;font-weight:600;margin-bottom:0.5rem">标签</h4>
             <div class="card-tags">${t.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}</div>
         </div>
-        <a href="${t.download}" class="btn-download-large" download>
+        <a href="${t.download}" class="btn-download-large" ${t.download.endsWith('.zip') ? 'target="_blank" rel="noopener"' : 'download'}>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             下载此模板
         </a>

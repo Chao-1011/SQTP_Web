@@ -205,6 +205,29 @@
         }
         .disclaimer svg { flex-shrink: 0; }
 
+        /* ========== Load More ========== */
+        .btn-load-more {
+            display: block;
+            width: 100%;
+            max-width: 360px;
+            margin: 2.5rem auto 0;
+            padding: 0.9rem 2rem;
+            background: var(--surface);
+            border: 1.5px dashed var(--border);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-family: var(--sans);
+        }
+        .btn-load-more:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(0, 79, 159, 0.03);
+        }
+
         @media (max-width: 600px) {
             .template-grid { grid-template-columns: 1fr; }
             .filter-tabs { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.5rem; }
@@ -212,6 +235,8 @@
             .tab-btn { padding: 0.75rem 1rem; font-size: 0.9rem; }
             .modal-content { width: 95vw; }
             .activity-item { flex-direction: column; }
+            .gallery-arrow { width: 32px; height: 32px; font-size: 0.9rem; }
+            .gallery-thumb { width: 56px; height: 42px; }
         }
     </style>
 </head>

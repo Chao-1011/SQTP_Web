@@ -489,22 +489,36 @@ const resultCount = document.getElementById('resultCount');
 
 let currentFilter = 'all';
 let currentSearch = '';
+let currentPage = 1;
+const ITEMS_PER_PAGE = 12;
+let filteredCache = [];
 
 // ========== Render ==========
-function renderTemplates() {
-    const filtered = templateData.filter(t => {
-        const matchFilter = currentFilter === 'all' || t.category === currentFilter;
-        const matchSearch = !currentSearch ||
-            t.name.includes(currentSearch) ||
-            t.desc.includes(currentSearch) ||
-            t.scenarios.some(s => s.includes(currentSearch)) ||
-            t.tags.some(tag => tag.includes(currentSearch));
-        return matchFilter && matchSearch;
-    });
+function renderTemplates(resetPage = true) {
+    if (resetPage) {
+        currentPage = 1;
+        filteredCache = [];
+    }
 
-    resultCount.textContent = `(共 ${filtered.length} 个模板)`;
+    if (filteredCache.length === 0) {
+        filteredCache = templateData.filter(t => {
+            const matchFilter = currentFilter === 'all' || t.category === currentFilter;
+            const matchSearch = !currentSearch ||
+                t.name.includes(currentSearch) ||
+                t.desc.includes(currentSearch) ||
+                t.scenarios.some(s => s.includes(currentSearch)) ||
+                t.tags.some(tag => tag.includes(currentSearch));
+            return matchFilter && matchSearch;
+        });
+    }
 
-    if (filtered.length === 0) {
+    const totalFiltered = filteredCache.length;
+    const pageItems = filteredCache.slice(0, currentPage * ITEMS_PER_PAGE);
+    const hasMore = pageItems.length < totalFiltered;
+
+    resultCount.textContent = `(共 ${totalFiltered} 个模板)`;
+
+    if (totalFiltered === 0) {
         templateGrid.innerHTML = `
             <div class="no-results">
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -512,10 +526,11 @@ function renderTemplates() {
                 <p>试试调整搜索关键词或筛选条件</p>
             </div>
         `;
+        updateLoadMore(false);
         return;
     }
 
-    templateGrid.innerHTML = filtered.map(t => {
+    templateGrid.innerHTML = pageItems.map(t => {
         const previewHTML = t.preview
             ? `<img src="${t.preview}" alt="${t.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
                <div class="card-preview-overlay"><span class="preview-hint">点击预览</span></div>`
@@ -550,6 +565,28 @@ function renderTemplates() {
             </div>
         `;
     }).join('');
+
+    updateLoadMore(hasMore);
+}
+
+function updateLoadMore(show) {
+    let btn = document.getElementById('btnLoadMore');
+    if (show) {
+        if (!btn) {
+            btn = document.createElement('button');
+            btn.id = 'btnLoadMore';
+            btn.className = 'btn-load-more';
+            btn.textContent = '浏览更多PPT模板';
+            btn.addEventListener('click', () => {
+                currentPage++;
+                renderTemplates(false);
+            });
+            templateGrid.parentNode.insertBefore(btn, templateGrid.nextSibling);
+        }
+        btn.style.display = '';
+    } else if (btn) {
+        btn.style.display = 'none';
+    }
 }
 
 // ========== Filter ==========
@@ -615,4 +652,4 @@ previewModal.addEventListener('click', (e) => { if (e.target === previewModal) c
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
 // ========== Initial Render ==========
-renderTemplates();
+renderTemplates(true);

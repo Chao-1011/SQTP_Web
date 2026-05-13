@@ -393,15 +393,6 @@ const templateData = [
         preview: null,
         download: 'PPT/PPT模板.zip'
     },
-    {
-        id: 'pack-04', name: '大英展示模板', category: 'pack',
-        catLabel: '压缩包', catClass: 'cat-pack',
-        desc: '大学英语课程展示专用模板（.pptx格式），适合英语课堂展示、英文演讲。',
-        scenarios: ['英语课堂', '英文演讲', '外语展示', '国际交流'],
-        tags: ['英语', '课堂', '展示'],
-        preview: null,
-        download: 'PPT/大英展示模板(1).pptx'
-    }
 ];
 
 // ========== DOM Elements ==========
